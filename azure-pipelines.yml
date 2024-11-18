@@ -7,10 +7,17 @@ pool:
 steps:
 - task: UseJava@1
   inputs:
-    version: '11' # Cambia a tu versión de Java si usas otra
+    version: '11'  # Cambia si usas otra versión de Java
     jdkArchitecture: 'x64'
 
 - script: |
     javac Main.java
     java Main
-  displayName: 'Compilar y ejecutar código Java'
+  displayName: 'Compilar y ejecutar el programa Java'
+
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: '<Nombre de tu conexión de servicio>'
+    appType: 'java'
+    appName: '<Nombre de tu App Service>'
+    package: '.'
