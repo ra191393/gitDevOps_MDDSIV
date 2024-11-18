@@ -1,0 +1,16 @@
+# Archivos de compilación Java
+*.class
+
+# Configuraciones del entorno IDE
+*.log
+*.iml
+.idea/
+.vscode/
+
+# Carpetas de compilación
+bin/
+out/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db

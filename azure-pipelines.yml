@@ -1,0 +1,16 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: UseJava@1
+  inputs:
+    version: '11' # Cambia a tu versión de Java si usas otra
+    jdkArchitecture: 'x64'
+
+- script: |
+    javac Main.java
+    java Main
+  displayName: 'Compilar y ejecutar código Java'
