@@ -10,19 +10,21 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+# Configurar Java explícitamente
+- task: UseJava@1
+  displayName: 'Set up Java 11'
+  inputs:
+    version: '11'  # Cambia esta versión si necesitas otra
+    jdkArchitecture: 'x64'
+
+# Ejecutar Maven
 - task: Maven@3
   displayName: 'Maven app/pom.xml'
   inputs:
     mavenPomFile: 'app/pom.xml'
     codeCoverageToolOption: Cobertura
 
-    # mavenOptions: '-Xmx3072m'
-    # javaHomeOption: 'JDKVersion'
-    # jdkVersionOption: '1.11'
-    # jdkArchitectureOption: 'x64'
-    # publishJUnitResults: true
-    # testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    # goals: 'package'
+# Copiar archivos generados
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
   inputs:
@@ -32,6 +34,8 @@ steps:
     CleanTargetFolder: true
     preserveTimestamp: true
   condition: succeededOrFailed()
+
+# Publicar artefactos de la compilación
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
   inputs:
