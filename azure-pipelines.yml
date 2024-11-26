@@ -43,3 +43,8 @@ steps:
     ArtifactName: 'drop'
     publishLocation: 'Container'
   condition: succeededOrFailed()
+- task: JavaToolInstaller@1
+  inputs:
+    versionSpec: '8'
+    jdkArchitectureOption: 'x64'
+    jdkSourceOption: 'PreInstalled'
