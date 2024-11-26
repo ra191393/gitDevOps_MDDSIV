@@ -1,11 +1,12 @@
 # Maven
-# Build your Java project and run tests with Apache Maven.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+- task: JavaToolInstaller@1
+  inputs:
+    versionSpec: '11'
+    jdkArchitectureOption: 'x64'
+    jdkSourceOption: 'PreInstalled'
 
-trigger:
+  trigger:
 - main
-
 pool:
   vmImage: ubuntu-latest
 
@@ -14,12 +15,8 @@ steps:
 - task: UseJava@1
   displayName: 'Set up Java 11'
   inputs:
-    version: '11'                     # Especifica la versión de JDK
-    jdkArchitecture: 'x64'            # Arquitectura del JDK
-    jdkSource: 'PreInstalled'         # Fuente del JDK
-    destinationDirectory: '$(Agent.ToolsDirectory)/Java'
-    cleanDestinationDirectory: true
-    createDestinationDirectory: true
+    version: '11'  # Cambia esta versión si necesitas otra
+    jdkArchitecture: 'x64'
 
 # Ejecutar Maven
 - task: Maven@3
@@ -47,3 +44,8 @@ steps:
     ArtifactName: 'drop'
     publishLocation: 'Container'
   condition: succeededOrFailed()
+- task: JavaToolInstaller@1
+  inputs:
+    versionSpec: '8'
+    jdkArchitectureOption: 'x64'
+    jdkSourceOption: 'PreInstalled'
